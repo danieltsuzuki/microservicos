@@ -1,7 +1,7 @@
 spring:
   application:
     name: mscloudgateway
-#  Habilita o localizador de microseriços com caixa baixa
+#  Habilita o localizador de microsericos com caixa baixa
   cloud:
     gateway:
       discovery:
