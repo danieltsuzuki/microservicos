@@ -2,9 +2,8 @@ package com.github.danieltsuzuki.msavaliadorcredito.application;
 
 import com.github.danieltsuzuki.msavaliadorcredito.application.ex.DadosClienteNotFoundException;
 import com.github.danieltsuzuki.msavaliadorcredito.application.ex.ErroComunicacaoMicroservicesException;
-import com.github.danieltsuzuki.msavaliadorcredito.domain.model.DadosAvaliacao;
-import com.github.danieltsuzuki.msavaliadorcredito.domain.model.RetornoAvaliacaoCliente;
-import com.github.danieltsuzuki.msavaliadorcredito.domain.model.SituacaoCliente;
+import com.github.danieltsuzuki.msavaliadorcredito.application.ex.ErroSolicitacaoCartaoException;
+import com.github.danieltsuzuki.msavaliadorcredito.domain.model.*;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class AvaliadorCreditoController {
     }
 
     @GetMapping(value = "situacao-cliente", params = "cpf")
-    public ResponseEntity consultaSituacaoCliente(@RequestParam("cpf") String cpf){
+    public ResponseEntity consultarSituacaoCliente(@RequestParam("cpf") String cpf){
         SituacaoCliente situacaoCliente = null;
         try {
             situacaoCliente = avaliadorCreditoService.obterSituacaoCliente(cpf);
@@ -45,6 +44,14 @@ public class AvaliadorCreditoController {
             return ResponseEntity.notFound().build();
         } catch (ErroComunicacaoMicroservicesException e) {
             return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
+        }
+    }
+    @PostMapping("solicitacoes-cartao")
+    public ResponseEntity solicitarCartao(@RequestBody DadosSolicitacaoEmissaoCartao dados){
+        try{
+            ProtocoloSolicitacaoCartao protocoloSolicitacaoCartao = avaliadorCreditoService.solicitarEmissaoCartao(dados);
+        } catch (ErroSolicitacaoCartaoException e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
