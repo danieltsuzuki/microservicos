@@ -12,7 +12,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: "http://localhost:8081/realms/Msrealm"
+          issuer-uri: "http://localhost:8081/realms/msrealm"
 
 server:
   port: 8080
