@@ -793,29 +793,7 @@
           }
         ],
         "policies": [
-          {
-            "id": "36ec79f5-baec-489b-aa0e-4a9ee51f948f",
-            "name": "Default Policy",
-            "description": "A policy that grants access only for users within this realm",
-            "type": "js",
-            "logic": "POSITIVE",
-            "decisionStrategy": "AFFIRMATIVE",
-            "config": {
-              "code": "// by default, grants any permission associated with this policy\n$evaluation.grant();\n"
-            }
-          },
-          {
-            "id": "90c81081-67c2-4882-b155-481d38b9310b",
-            "name": "Default Permission",
-            "description": "A permission that applies to the default resource type",
-            "type": "resource",
-            "logic": "POSITIVE",
-            "decisionStrategy": "UNANIMOUS",
-            "config": {
-              "defaultResourceType": "urn:mscredito:resources:default",
-              "applyPolicies": "[\"Default Policy\"]"
-            }
-          }
+          
         ],
         "scopes": [],
         "decisionStrategy": "UNANIMOUS"
